@@ -74,25 +74,25 @@ class ConfigParser:
         )
 
     def configure(self, configuration):
-        if 'list' in configuration.keys():
-            if 'display' in configuration['list'].keys():
+        if 'list' in list(configuration.keys()):
+            if 'display' in list(configuration['list'].keys()):
                 self.parse_list_display(configuration['list']['display'])
 
-            if 'action' in configuration['list'].keys():
+            if 'action' in list(configuration['list'].keys()):
                 self.parse_list_action(configuration['list']['action'])
 
-            if 'actions' in configuration['list'].keys():
+            if 'actions' in list(configuration['list'].keys()):
                 self.parse_list_actions(configuration['list']['actions'])
 
-            if 'object_actions' in configuration['list'].keys():
+            if 'object_actions' in list(configuration['list'].keys()):
                 self.parse_list_object_actions(configuration['list']['object_actions'])
             else:
                 self.parse_list_object_actions(default_loa)
 
-            if 'batch' in configuration['list'].keys():
+            if 'batch' in list(configuration['list'].keys()):
                 self.parse_batch(configuration['list']['batch'])
 
-            if 'filter' in configuration['list'].keys():
+            if 'filter' in list(configuration['list'].keys()):
                 self.parse_filter(configuration['list']['filter'])
 
     def parse_list_display(self, elements):
@@ -109,7 +109,7 @@ class ConfigParser:
         if not all(k in list_element for k in ('url', )):
             raise ConfigurationError('Wrong configuration format for list element')
 
-        if 'type' not in list_element.keys():
+        if 'type' not in list(list_element.keys()):
             list_element['type'] = self.NO_URL
 
         self.list_configuration['action'] = list_element
@@ -128,28 +128,28 @@ class ConfigParser:
         if not all(k in action for k in ('key', 'label')):
             raise ConfigurationError('Wrong configuration format for list actions element')
 
-        if 'type' not in action.keys():
+        if 'type' not in list(action.keys()):
             action['type'] = self.NO_URL
 
-        if 'credential' not in action.keys():
+        if 'credential' not in list(action.keys()):
             action['credential'] = None
 
-        if 'confirm' not in action.keys():
+        if 'confirm' not in list(action.keys()):
             action['confirm'] = False
 
-        if 'confirm_message' not in action.keys():
+        if 'confirm_message' not in list(action.keys()):
             action['confirm_message'] = 'Are you sure?'
 
-        if 'class' not in action.keys():
+        if 'class' not in list(action.keys()):
             action['class'] = 'btn btn-small'
 
-        if 'call' not in action.keys():
+        if 'call' not in list(action.keys()):
             action['call'] = False
 
-        if 'visable' not in action.keys():
+        if 'visable' not in list(action.keys()):
             action['visable'] = True
 
-        if 'disabled' not in action.keys():
+        if 'disabled' not in list(action.keys()):
             action['disabled'] = False
 
         return action
@@ -158,10 +158,10 @@ class ConfigParser:
         if not all(k in batch_element for k in ('url', )):
             raise ConfigurationError('Wrong configuration format for list filter element')
 
-        if 'type' not in batch_element.keys():
+        if 'type' not in list(batch_element.keys()):
             batch_element['type'] = self.NO_URL
 
-        if 'form' not in batch_element.keys():
+        if 'form' not in list(batch_element.keys()):
             batch_element['form'] = None
 
         self.list_configuration['batch'] = batch_element
@@ -170,10 +170,10 @@ class ConfigParser:
         if not all(k in filter_element for k in ('session_name', 'display', 'url')):
             raise ConfigurationError('Wrong configuration format for list filter element')
 
-        if 'type' not in filter_element.keys():
+        if 'type' not in list(filter_element.keys()):
             filter_element['type'] = self.NO_URL
 
-        if 'form' not in filter_element.keys():
+        if 'form' not in list(filter_element.keys()):
             filter_element['form'] = None
 
         self.list_configuration['filter'] = filter_element

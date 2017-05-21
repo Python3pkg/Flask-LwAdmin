@@ -82,17 +82,17 @@ class Navbar(object):
         return self._navbar['brand']
 
     def parse_item(self, item):
-        if 'key' not in item.keys():
+        if 'key' not in list(item.keys()):
             ConfigurationError('Menu items must have unique key')
 
-        if 'type' not in item.keys():
+        if 'type' not in list(item.keys()):
             item['type'] = self.NO_URL
 
-        if 'group' in item.keys():
+        if 'group' in list(item.keys()):
             item['label'] = ''
             item['type'] = self.GROUP
 
-        if 'label' not in item.keys():
+        if 'label' not in list(item.keys()):
             ConfigurationError('Menu items must have label')
 
         item['caret'] = item.get('caret', False)
@@ -127,7 +127,7 @@ class Navbar(object):
             'caret': False
         }
         if credential is not None and self._permissions is not None:
-            if credential in self._permissions.keys():
+            if credential in list(self._permissions.keys()):
                 user_permissions = self._permissions[credential]
                 item['hidden'] = self.__is_hidden(user_permissions)
 
@@ -192,7 +192,7 @@ def create_navbar_fd(conf=None, active_key=None):
         brand_url=brand.get('brand_url', None),
         brand_html=brand.get('brand_html', None)
     )
-    if 'permissions' in conf.keys():
+    if 'permissions' in list(conf.keys()):
         navbar.set_permissions(conf['permissions'])
 
     items = conf.get('items', [])
@@ -223,7 +223,7 @@ def add_menu_item(navbar, item):
         item.get('disabled', False)
     )
 
-    if 'icon' in item.keys():
+    if 'icon' in list(item.keys()):
         navbar.set_icon(item['key'], item['icon'], item.get('only_icon', False))
 
     if item['caret']:
@@ -233,7 +233,7 @@ def add_menu_item(navbar, item):
         for subitem in item['group']:
             add_group_item(navbar, item['key'], subitem)
 
-    if 'dropdown' in item.keys():
+    if 'dropdown' in list(item.keys()):
         for subitem in item['dropdown']:
             add_dropdown_item(navbar, item['key'], subitem)
 
@@ -250,7 +250,7 @@ def add_profile_item(navbar, item):
         item.get('disabled', False)
     )
 
-    if 'icon' in item.keys():
+    if 'icon' in list(item.keys()):
         navbar.set_icon(item['key'], item['icon'], item.get('only_icon', False))
 
     if item['caret']:
@@ -260,7 +260,7 @@ def add_profile_item(navbar, item):
         for subitem in item['group']:
             add_group_item(navbar, item['key'], subitem)
 
-    if 'dropdown' in item.keys():
+    if 'dropdown' in list(item.keys()):
         for subitem in item['dropdown']:
             add_dropdown_item(navbar, item['key'], subitem)
 
@@ -277,13 +277,13 @@ def add_group_item(navbar, parent, item):
         item.get('disabled', False)
     )
 
-    if 'icon' in item.keys():
+    if 'icon' in list(item.keys()):
         navbar.set_icon(item['key'], item['icon'], item.get('only_icon', False))
 
     if item['caret']:
         navbar.set_caret(item['key'], True)
 
-    if 'dropdown' in item.keys():
+    if 'dropdown' in list(item.keys()):
         for subitem in item['dropdown']:
             add_dropdown_item(navbar, item['key'], subitem)
 
@@ -300,7 +300,7 @@ def add_dropdown_item(navbar, parent, item):
         item.get('disabled', False)
     )
 
-    if 'icon' in item.keys():
+    if 'icon' in list(item.keys()):
         navbar.set_icon(item['key'], item['icon'], item.get('only_icon', False))
 
     if item['caret']:
